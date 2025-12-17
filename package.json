@@ -1,0 +1,27 @@
+{
+  "name": "dsti-devops-api",
+  "version": "0.1.0",
+  "description": "API for DSTI DevOps project",
+  "main": "app/src/index.js",
+  "scripts": {
+    "start": "node app/src/index.js",
+    "test": "jest"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "sqlite3": "^5.1.7",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.1.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": ["**/app/tests/**/*.test.js"]
+  }
+}
