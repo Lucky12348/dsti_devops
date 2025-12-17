@@ -1,0 +1,84 @@
+---
+- hosts: all
+  become: true
+  vars:
+    app_dir: /vagrant
+    service_name: dsti-devops
+
+  tasks:
+    - name: Install base dependencies
+      ansible.builtin.apt:
+        name:
+          - curl
+          - ca-certificates
+          - gnupg
+          - lsb-release
+        state: present
+        update_cache: true
+
+    - name: Add NodeSource signing key
+      ansible.builtin.apt_key:
+        url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+        state: present
+
+    - name: Add NodeSource repository for Node.js 20
+      ansible.builtin.apt_repository:
+        repo: "deb https://deb.nodesource.com/node_20.x {{ ansible_distribution_release }} main"
+        state: present
+        filename: nodesource
+
+    - name: Install Node.js and SQLite
+      ansible.builtin.apt:
+        name:
+          - nodejs
+          - sqlite3
+        state: present
+        update_cache: true
+
+    - name: Install npm dependencies
+      ansible.builtin.command: npm ci
+      args:
+        chdir: "{{ app_dir }}"
+      environment:
+        NODE_ENV: production
+      become_user: vagrant
+
+    - name: Create systemd service for the API
+      ansible.builtin.copy:
+        dest: /etc/systemd/system/{{ service_name }}.service
+        mode: '0644'
+        content: |
+          [Unit]
+          Description=DSTI DevOps API
+          After=network.target
+
+          [Service]
+          WorkingDirectory={{ app_dir }}
+          ExecStart=/usr/bin/node {{ app_dir }}/app/src/index.js
+          Environment=PORT=3000
+          Restart=always
+          User=vagrant
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Reload systemd
+      ansible.builtin.systemd:
+        daemon_reload: true
+
+    - name: Enable and start the API service
+      ansible.builtin.systemd:
+        name: "{{ service_name }}"
+        state: started
+        enabled: true
+
+    - name: Wait for the API port to open
+      ansible.builtin.wait_for:
+        host: 127.0.0.1
+        port: 3000
+        timeout: 30
+
+    - name: Health check endpoint
+      ansible.builtin.uri:
+        url: http://localhost:3000/health
+        status_code: 200
