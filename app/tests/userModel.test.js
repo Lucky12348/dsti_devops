@@ -1,4 +1,4 @@
-const { validateUserInput } = require('../src/models/userModel');
+const { validateUserInput } = require('../models/userModel');
 
 describe('validateUserInput', () => {
   it('returns normalized user data', () => {
