@@ -39,3 +39,5 @@ run and test health:
 docker run --rm -p 3000:3000 dsti-devops:local
 curl http://localhost:3000/health
 ```
+
+### step 3 Kubernetes
