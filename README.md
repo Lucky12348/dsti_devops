@@ -39,3 +39,35 @@ run and test health:
 docker run --rm -p 3000:3000 dsti-devops:local
 curl http://localhost:3000/health
 ```
+
+### step 4 kubernetes (minikube)
+
+start cluster (PowerShell):
+```
+minikube start
+```
+
+build image inside minikube docker (or push/pull from Docker Hub):
+```
+minikube -p minikube docker-env --shell powershell | Invoke-Expression
+docker build -t dsti-devops:latest -f DockerFile .
+```
+
+apply manifests:
+```
+kubectl apply -f kubernetes/pv-pvc.yaml
+kubectl apply -f kubernetes/deployment.yaml
+kubectl apply -f kubernetes/service.yaml
+```
+
+check pod and service:
+```
+kubectl get pods
+kubectl get svc
+```
+
+access service:
+```
+kubectl port-forward svc/dsti-devops-service 3000:3000
+curl http://localhost:3000/health
+```
