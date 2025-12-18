@@ -1,4 +1,4 @@
-const { initDatabase, get, all, run } = require('../src/database');
+const { initDatabase, get, all, run } = require('../database');
 const { mapUserRow } = require('../models/userModel');
 
 async function listUsers() {

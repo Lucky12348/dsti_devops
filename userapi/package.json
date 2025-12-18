@@ -2,9 +2,9 @@
   "name": "dsti-devops-api",
   "version": "0.1.0",
   "description": "API for DSTI DevOps project",
-  "main": "app/src/index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node app/src/index.js",
+    "start": "node src/index.js",
     "test": "jest"
   },
   "engines": {
@@ -22,6 +22,6 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "testMatch": ["**/app/tests/**/*.test.js"]
+    "testMatch": ["**/test/**/*.test.js"]
   }
 }
