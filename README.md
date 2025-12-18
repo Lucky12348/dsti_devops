@@ -103,9 +103,16 @@ dsti_devops
     │   │   └── site.yml
     │   └── Vagrantfile
     ├── image
-    │   ├── api-swagger.png
-    │   ├── k8s-resources.png
-    │   └── vagrant-ansible.png
+    │   ├── api_docs
+    │   │   ├── others
+    │   │   │   ├── delete_data.png
+    │   │   │   ├── get_all.png
+    │   │   │   ├── get_id.png
+    │   │   │   ├── post_add.png
+    │   │   │   └── put_update.png
+    │   │   └── api_endpoints.png
+    │   └── kubernetes
+    │       └── kubernetes_health_overview.png
     ├── k8s
     │   ├── deployment.yaml
     │   ├── pv-pvc.yaml
@@ -129,7 +136,6 @@ dsti_devops
     │   │   ├── userModel.test.js
     │   │   └── users.api.test.js
     │   ├── .dockerignore
-    │   ├── CHANGELOG.md
     │   ├── Dockerfile
     │   ├── package-lock.json
     │   └── package.json
