@@ -90,6 +90,7 @@ PVC stores SQLite data at /mnt/data/dsti-devops. Service exposes NodePort 30080.
 ## Screenshots
 - API docs: ![Swagger UI](image/api_docs/api_endpoints.png)
 - Kubernetes resources: ![kubectl view](image/kubernetes/kubernetes_health_overview.png)
+- Docker: ![docker view](image/docker_compose.png)
 
 ## Repository file tree
 
