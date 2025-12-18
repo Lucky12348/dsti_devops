@@ -5,7 +5,10 @@ Dockerfile
 .git
 .gitignore
 coverage
+test
 .env
 .env.*
 logs
 *.sqlite
+.vagrant
+image

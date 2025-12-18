@@ -2,7 +2,7 @@
 - hosts: all
   become: true
   vars:
-    app_dir: /vagrant
+    app_dir: /vagrant/userapi
     service_name: dsti-devops
 
   tasks:
@@ -54,8 +54,9 @@
 
           [Service]
           WorkingDirectory={{ app_dir }}
-          ExecStart=/usr/bin/node {{ app_dir }}/app/src/index.js
+          ExecStart=/usr/bin/node {{ app_dir }}/src/index.js
           Environment=PORT=3000
+          Environment=DB_PATH={{ app_dir }}/data.sqlite
           Restart=always
           User=vagrant
 

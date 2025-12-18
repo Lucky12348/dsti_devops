@@ -1,0 +1,36 @@
+# Vagrant configuration for local development environment
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/focal64"
+  config.vm.hostname = "dsti-devops"
+
+  config.vm.synced_folder "../", "/vagrant",
+                          type: "virtualbox",
+                          mount_options: ["dmode=775", "fmode=664"]
+
+  # Allow slower boots when Hyper-V/virtualization-based security is active on the host
+  config.vm.boot_timeout = 600
+
+  # Avoid conflicts if port 3000 is already used on the host
+  config.vm.network "forwarded_port", guest: 3000, host: 3000, auto_correct: true
+  # static IP for the VM you can change it as needed
+  config.vm.network "private_network", ip: "192.168.56.42"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 2048
+    vb.cpus = 2
+  end
+
+  # Install Ansible inside the guest so Windows hosts don't need a local Ansible install
+  config.vm.provision "shell", privileged: true, inline: <<-SHELL
+    if ! command -v ansible >/dev/null 2>&1; then
+      apt-get update -y
+      apt-get install -y ansible python3-apt
+    fi
+  SHELL
+
+  # Run the playbook from inside the guest
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.playbook = "/vagrant/iac/playbooks/site.yml"
+    ansible.become = true
+  end
+end

@@ -1,6 +1,6 @@
 const express = require('express');
 const { initDatabase } = require('./database');
-const usersRouter = require('../routes/users');
+const usersRouter = require('./routes/users');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger');
 

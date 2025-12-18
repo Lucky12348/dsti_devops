@@ -15,8 +15,9 @@ RUN apk add --no-cache curl
 
 # Copy dependencies and source code
 COPY --from=deps /usr/src/app/node_modules ./node_modules
-COPY app ./app
-COPY package.json ./
+COPY src ./src
+COPY conf ./conf
+COPY package*.json ./
 
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --retries=5 \

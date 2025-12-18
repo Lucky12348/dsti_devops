@@ -1,8 +1,16 @@
 # Node modules
 node_modules/
+userapi/node_modules/
 
 # environment variables
 .env
 .env.*
+userapi/.env
+userapi/.env.*
 !.env.example
+!userapi/conf/.env.example
 .vagrant/
+iac/.vagrant/
+
+# SQLite databases
+*.sqlite

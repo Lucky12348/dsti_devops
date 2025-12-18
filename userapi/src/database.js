@@ -1,8 +1,9 @@
+const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 
 let dbInstance;
 
-function initDatabase(dbPath = process.env.DB_PATH || 'data.sqlite') {
+function initDatabase(dbPath = process.env.DB_PATH || path.join(__dirname, '..', 'data.sqlite')) {
   if (dbInstance) {
     return Promise.resolve(dbInstance);
   }

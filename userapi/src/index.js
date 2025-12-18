@@ -5,4 +5,5 @@ const app = createApp();
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+console.log(`Click here to open: http://localhost:${PORT}`);
 });
